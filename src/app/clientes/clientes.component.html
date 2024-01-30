@@ -1,0 +1,42 @@
+<div class="card border-secondary mb-3">
+  <div class="card-header">CLIENTES</div>
+  <div class="card-body text-secondary">
+      <h5 class="card-title">Listado de clientes</h5>
+
+      <div class="my-2 text-left">
+          <button class="btn btn-success" type="button" [routerLink]="['/clientes/form']">Crear Cliente</button>
+      </div>
+
+
+      <!-- Validacion para saber si hay registros dentro de la base de datos -->
+      <div *ngIf="clientes?.length==0" class="alert alert-info ">
+            ¡No hay registros en labase de datos!
+      </div>
+
+      <table class="table table-bordered table-striped text-center " *ngIf="clientes?.length>0">
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>NOMBRE</th>
+                  <th>APELLIDO</th>
+                  <th>EMAIL</th>
+                  <th>FECHA</th>
+                  <th>EDITAR</th>
+                  <th>ELIMINAR</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let clienteHtml of clientes">
+                  <td>{{clienteHtml.id}}</td>
+                  <td>{{clienteHtml.nombre}}</td>
+                  <td>{{clienteHtml.apellido|uppercase}}</td> <!-- Modificamos usanod pipe directamente en la vista usando |-->
+                  <td>{{clienteHtml.email}}</td>
+                  <td>{{clienteHtml.createAt|date:'EEEE dd/MMMM/yyyy'}}</td>
+                  <td class="text-center"><button  type="button" name="editar" [routerLink]="['/clientes/form', clienteHtml.id]" class="btn btn-warning"> Editar</button></td>
+                  <td class="text-center"><button type="button" name="eliminar" (click)='delete(clienteHtml)' class="btn btn-danger"> Eliminar</button></td> 
+                </tr>
+          </tbody>
+      </table>
+      <paginator-nav *ngIf="paginadorP" [paginadorH]="paginadorP"></paginator-nav>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+    <li *ngFor="let err of errores">{{err}}</li>
+    
+</ul>
+
+<div class="card bg-dark text-white">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body ">
+        <form #validatorForm="ngForm" class="was-validated">
+            <div class="mb-3 row">
+                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" #validatorNombre="ngModel">  <!-- required minlength="4" -->
+                    <div class="invalid-feedback" *ngIf="validatorNombre.invalid && (validatorNombre.dirty || validatorNombre.touched)">
+                        <div *ngIf="validatorNombre.hasError('required')">Nombre es requerido</div>
+                        <div *ngIf="validatorNombre.hasError('minlength')">El nombre debe tener mínimo 4 caracteres</div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="mb-3 row">
+                <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="cliente.apellido" name="apellido" #validatorApellido="ngModel" >  <!-- required minlength="4" -->
+                    <div class="invalid-feedback" *ngIf="validatorApellido.invalid && (validatorApellido.dirty || validatorApellido.touched)">
+                        <div *ngIf="validatorApellido.hasError('required')">Apellido es requerido</div>
+                        <div *ngIf="validatorApellido.hasError('minlength')">El apellido debe tener mínimo 4 caracteres</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-3 row">
+                <label for="email" class="col-form-label col-sm-2">Correo Electrónico</label>
+                <div class="col-sm-6">
+                    <input type="email" class="form-control" [(ngModel)]="cliente.email" name="email"   #validatorEmail="ngModel">  <!-- required email -->
+                    <div class="invalid-feedback" *ngIf="validatorEmail.invalid && (validatorEmail.dirty || validatorEmail.touched)">
+                        <div *ngIf="validatorEmail.hasError('required')">Email es requerido</div>
+                        <div *ngIf="validatorEmail.hasError('email')">Email invalido</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="createAt" class="col-form-label col-sm-2">Fecha</label>
+                <div class="col-sm-6">
+                    <input type="date" class="form-control" [(ngModel)]="cliente.createAt" name="createAt" >  <!-- required minlength="4" -->
+                </div>
+            </div>
+            
+            <div class="mb-3 row">
+                <div class="col-sm-6">
+                         <button type="submit" class="btn btn-secondary" (click)="create()" *ngIf="!cliente.id else elseBlock" [disabled]="!validatorForm.form.valid">CREAR</button>
+                    <ng-template #elseBlock>
+                        <button type="submit" class="btn btn-secondary" (click)="update()" [disabled]="!validatorForm.form.valid">Editar</button>   
+                    </ng-template>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'BIENBENIDO A ANGULAR';
   curso: string = 'con angular 18';
-  almuno: string = 'Juan Arturo Galindo Perez';
+  almuno: string = 'Juan Arturo';
 }
